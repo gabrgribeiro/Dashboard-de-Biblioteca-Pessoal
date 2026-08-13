@@ -35,11 +35,11 @@ para uma aplicação full-stack.
 - [ ] Adicionar anotações
 
 ### Dashboard
-- [ ] Total de livros
-- [ ] Livros lidos
-- [ ] Livros em andamento
-- [ ] Média das avaliações
-- [ ] Páginas lidas
+- [x] Total de livros
+- [x] Livros lidos
+- [x] Livros em andamento
+- [x] Média das avaliações
+- [x] Páginas lidas
 - [ ] Estatísticas por gênero
 - [ ] Meta de leitura
 
