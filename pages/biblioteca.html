@@ -73,6 +73,69 @@
         </section>
     </main>
 
+    <div class="modal-overlay" id="bookModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2>Adicionar livro</h2>
+                <button id="btnFecharModal" type="button">&times;</button>
+            </div>
+
+            <form id="bookForm">
+                <div class="form-group">
+                    <label for="titulo">Título</label>
+                    <input id="titulo" type="text" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="autor">Autor</label>
+                    <input id="autor" type="text" required>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="genero">Gênero</label>
+                        <input id="genero" type="text" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="paginas">Páginas</label>
+                        <input id="paginas" type="number" min="1" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status">
+                        <option value="quero-ler">Quero ler</option>
+                        <option value="lendo">Lendo</option>
+                        <option value="lido">Lido</option>
+                        <option value="abandonado">Abandonado</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="nota">Nota</label>
+                    <input id="nota" type="number" min="0" max="10" step="0.1" value="0">
+                </div>
+
+                <div class="form-group">
+                    <label for="capa">URL da capa</label>
+                    <input id="capa" type="url" placeholder="https://...">
+                </div>
+
+                <div class="form-group">
+                    <label for="descricao">Descrição</label>
+                    <textarea id="descricao" rows="4"></textarea>
+                </div>
+
+                <div class="modal-actions">
+                    <button id="btnCancelar" type="button">Cancelar</button>
+                    <button type="submit">Salvar livro</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <footer class="footer">
         <p>Personal Library &copy; 2026</p>
     </footer>

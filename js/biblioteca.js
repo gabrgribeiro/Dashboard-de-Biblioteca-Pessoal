@@ -120,3 +120,56 @@ statusFilter.addEventListener("change", filtrarLivros);
 sortBooks.addEventListener("change", filtrarLivros);
 
 renderizarLivros(livros);
+
+const bookModal = document.getElementById("bookModal");
+const bookForm = document.getElementById("bookForm");
+const btnAdicionar = document.getElementById("btnAdicionar");
+const btnAdicionarLivro = document.getElementById("btnAdicionarLivro");
+const btnFecharModal = document.getElementById("btnFecharModal");
+const btnCancelar = document.getElementById("btnCancelar");
+
+function abrirModal() {
+    bookModal.classList.add("active");
+}
+
+function fecharModal() {
+    bookModal.classList.remove("active");
+    bookForm.reset();
+}
+
+btnAdicionar.addEventListener("click", abrirModal);
+btnAdicionarLivro.addEventListener("click", abrirModal);
+btnFecharModal.addEventListener("click", fecharModal);
+btnCancelar.addEventListener("click", fecharModal);
+
+bookModal.addEventListener("click", event => {
+    if (event.target === bookModal) {
+        fecharModal();
+    }
+});
+
+bookForm.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const novoLivro = {
+        id: Date.now(),
+        titulo: document.getElementById("titulo").value.trim(),
+        autor: document.getElementById("autor").value.trim(),
+        genero: document.getElementById("genero").value.trim(),
+        paginas: Number(document.getElementById("paginas").value),
+        paginasLidas: 0,
+        status: document.getElementById("status").value,
+        nota: Number(document.getElementById("nota").value),
+        capa: document.getElementById("capa").value.trim(),
+        descricao: document.getElementById("descricao").value.trim(),
+        anotacoes: ""
+    };
+
+    livros.push(novoLivro);
+
+    salvarLivros(livros);
+
+    renderizarLivros(livros);
+
+    fecharModal();
+}); 
