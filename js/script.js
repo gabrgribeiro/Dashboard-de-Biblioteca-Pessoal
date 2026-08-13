@@ -1,3 +1,5 @@
+let livros = carregarLivros();
+
 const totalLivros = document.getElementById("totalLivros");
 const livrosLidos = document.getElementById("livrosLidos");
 const livrosLendo = document.getElementById("livrosLendo");

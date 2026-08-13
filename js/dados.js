@@ -1,4 +1,4 @@
-const livros = [
+const livrosIniciais = [
     {
         id: 1,
         titulo: "O Hobbit",
@@ -52,3 +52,25 @@ const livros = [
         anotacoes: ""
     }
 ];
+
+function carregarLivros() {
+    const livrosSalvos = localStorage.getItem("livros");
+
+    if (livrosSalvos) {
+        return JSON.parse(livrosSalvos);
+    }
+
+    localStorage.setItem(
+        "livros",
+        JSON.stringify(livrosIniciais)
+    );
+
+    return livrosIniciais;
+}
+
+function salvarLivros(livros) {
+    localStorage.setItem(
+        "livros",
+        JSON.stringify(livros)
+    );
+}

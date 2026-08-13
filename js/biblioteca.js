@@ -1,3 +1,5 @@
+let livros = carregarLivros();
+
 const bookGrid = document.getElementById("bookGrid");
 const searchBook = document.getElementById("searchBook");
 const statusFilter = document.getElementById("statusFilter");

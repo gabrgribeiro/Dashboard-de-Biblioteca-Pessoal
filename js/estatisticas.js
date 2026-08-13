@@ -1,3 +1,5 @@
+let livros = carregarLivros();
+
 const totalLidos = document.getElementById("totalLidos");
 const paginasLidas = document.getElementById("paginasLidas");
 const notaMedia = document.getElementById("notaMedia");

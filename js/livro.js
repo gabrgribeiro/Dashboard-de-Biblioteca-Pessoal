@@ -1,3 +1,5 @@
+let livros = carregarLivros();
+
 const bookDetails = document.getElementById("bookDetails");
 
 const params = new URLSearchParams(
