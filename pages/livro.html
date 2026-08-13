@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Library - Livro</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/livro.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Detalhes do livro</h1>
+        <div class="header-actions">
+            <span>👤 Gabriel</span>
+        </div>
+    </header>
+
+    <nav class="menu">
+        <div class="menu-logo">
+            <span>📚</span>
+            <h2>Personal Library</h2>
+        </div>
+
+        <ul>
+            <li><a href="../index.html">🏠 Dashboard</a></li>
+            <li><a class="active" href="biblioteca.html">📖 Biblioteca</a></li>
+            <li><a href="estatisticas.html">📊 Estatísticas</a></li>
+        </ul>
+
+        <div class="menu-add">
+            <button type="button">＋ Adicionar livro</button>
+        </div>
+
+        <div class="menu-settings">
+            <a href="#">⚙ Configurações</a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <section class="book-details" id="bookDetails">
+            <p>Carregando livro...</p>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Personal Library &copy; 2026</p>
+    </footer>
+
+    <script src="../js/dados.js"></script>
+    <script src="../js/livro.js"></script>
+</body>
+</html>

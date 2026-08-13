@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Library - Estatísticas</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/estatisticas.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Estatísticas</h1>
+        <div class="header-actions">
+            <span>👤 Gabriel</span>
+        </div>
+    </header>
+
+    <nav class="menu">
+        <div class="menu-logo">
+            <span>📚</span>
+            <h2>Personal Library</h2>
+        </div>
+
+        <ul>
+            <li><a href="../index.html">🏠 Dashboard</a></li>
+            <li><a href="biblioteca.html">📖 Biblioteca</a></li>
+            <li><a class="active" href="estatisticas.html">📊 Estatísticas</a></li>
+        </ul>
+
+        <div class="menu-add">
+            <button type="button">＋ Adicionar livro</button>
+        </div>
+
+        <div class="menu-settings">
+            <a href="#">⚙ Configurações</a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <section class="statistics">
+            <div class="page-header">
+                <div>
+                    <h2>Estatísticas</h2>
+                    <p>Acompanhe seu histórico de leitura.</p>
+                </div>
+
+                <select id="yearFilter">
+                    <option value="2026">2026</option>
+                    <option value="2025">2025</option>
+                </select>
+            </div>
+
+            <div class="stats-cards">
+                <div class="stat-card">
+                    <span id="totalLidos">0</span>
+                    <p>Livros concluídos</p>
+                </div>
+
+                <div class="stat-card">
+                    <span id="paginasLidas">0</span>
+                    <p>Páginas lidas</p>
+                </div>
+
+                <div class="stat-card">
+                    <span id="notaMedia">0</span>
+                    <p>Nota média</p>
+                </div>
+            </div>
+
+            <section class="chart-section">
+                <h2>Livros lidos por mês</h2>
+                <div class="chart-placeholder">
+                    Gráfico será implementado posteriormente.
+                </div>
+            </section>
+
+            <div class="stats-columns">
+                <section class="data-card">
+                    <h2>Gêneros mais lidos</h2>
+                    <div id="generosMaisLidos"></div>
+                </section>
+
+                <section class="data-card">
+                    <h2>Autores mais lidos</h2>
+                    <div id="autoresMaisLidos"></div>
+                </section>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Personal Library &copy; 2026</p>
+    </footer>
+
+    <script src="../js/dados.js"></script>
+    <script src="../js/estatisticas.js"></script>
+</body>
+</html>

@@ -1,0 +1,101 @@
+.book-details {
+    padding: 35px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 30px;
+    color: #4d8587;
+    text-decoration: none;
+}
+
+.book-main {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 40px;
+    max-width: 900px;
+}
+
+.book-cover.large {
+    width: 260px;
+    height: 380px;
+    border-radius: 10px;
+}
+
+.book-info {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.book-info h2 {
+    font-size: 2.5rem;
+}
+
+.book-info h3 {
+    font-weight: 500;
+    color: #666;
+}
+
+.rating {
+    font-size: 1.3rem;
+    font-weight: 700;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.book-info .primary-button {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.description,
+.notes {
+    max-width: 900px;
+    margin-top: 45px;
+}
+
+.description h2,
+.notes h2 {
+    margin-bottom: 15px;
+}
+
+.notes textarea {
+    width: 100%;
+    min-height: 140px;
+    padding: 15px;
+    border: 1px solid #aaa;
+    border-radius: 8px;
+    resize: vertical;
+}
+
+
+.book-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+@media (max-width: 700px) {
+    .book-details {
+        padding: 20px;
+    }
+
+    .book-main {
+        grid-template-columns: 1fr;
+    }
+
+    .book-cover.large {
+        width: 200px;
+        height: 290px;
+    }
+
+    .progress-info {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Library - Biblioteca</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/biblioteca.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Biblioteca</h1>
+        <div class="header-actions">
+            <button type="button">🔍</button>
+            <span>👤 Gabriel</span>
+        </div>
+    </header>
+
+    <nav class="menu">
+        <div class="menu-logo">
+            <span>📚</span>
+            <h2>Personal Library</h2>
+        </div>
+
+        <ul>
+            <li><a href="../index.html">🏠 Dashboard</a></li>
+            <li><a class="active" href="biblioteca.html">📖 Biblioteca</a></li>
+            <li><a href="estatisticas.html">📊 Estatísticas</a></li>
+        </ul>
+
+        <div class="menu-add">
+            <button id="btnAdicionar" type="button">＋ Adicionar livro</button>
+        </div>
+
+        <div class="menu-settings">
+            <a href="#">⚙ Configurações</a>
+        </div>
+    </nav>
+
+    <main class="main">
+        <section class="library">
+            <div class="page-header">
+                <div>
+                    <h2>Minha biblioteca</h2>
+                    <p>Gerencie todos os seus livros.</p>
+                </div>
+
+                <button class="primary-button" id="btnAdicionarLivro" type="button">
+                    ＋ Adicionar livro
+                </button>
+            </div>
+
+            <div class="filters">
+                <input id="searchBook" type="search" placeholder="Pesquisar livro...">
+
+                <select id="statusFilter">
+                    <option value="todos">Todos</option>
+                    <option value="quero-ler">Quero ler</option>
+                    <option value="lendo">Lendo</option>
+                    <option value="lido">Lido</option>
+                    <option value="abandonado">Abandonado</option>
+                </select>
+
+                <select id="sortBooks">
+                    <option value="titulo">Título</option>
+                    <option value="autor">Autor</option>
+                    <option value="nota">Nota</option>
+                    <option value="progresso">Progresso</option>
+                </select>
+            </div>
+
+            <div class="book-grid" id="bookGrid"></div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>Personal Library &copy; 2026</p>
+    </footer>
+
+    <script src="../js/dados.js"></script>
+    <script src="../js/biblioteca.js"></script>
+</body>
+</html>
