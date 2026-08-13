@@ -5,10 +5,19 @@ const searchBook = document.getElementById("searchBook");
 const statusFilter = document.getElementById("statusFilter");
 const sortBooks = document.getElementById("sortBooks");
 
+const bookModal = document.getElementById("bookModal");
+const bookForm = document.getElementById("bookForm");
+const btnAdicionar = document.getElementById("btnAdicionar");
+const btnAdicionarLivro = document.getElementById("btnAdicionarLivro");
+const btnFecharModal = document.getElementById("btnFecharModal");
+const btnCancelar = document.getElementById("btnCancelar");
+const modalTitle = document.getElementById("modalTitle");
+const btnSalvarLivro = document.getElementById("btnSalvarLivro");
+
+let livroEditandoId = null;
+
 function calcularProgresso(livro) {
-    if (livro.paginas <= 0) {
-        return 0;
-    }
+    if (livro.paginas <= 0) return 0;
 
     return Math.round(
         (livro.paginasLidas / livro.paginas) * 100
@@ -35,14 +44,13 @@ function renderizarLivros(lista) {
                 Nenhum livro encontrado.
             </p>
         `;
-
         return;
     }
 
     lista.forEach(livro => {
         const progresso = calcularProgresso(livro);
-
         const card = document.createElement("article");
+
         card.classList.add("library-card");
 
         card.innerHTML = `
@@ -63,32 +71,38 @@ function renderizarLivros(lista) {
                 ${formatarStatus(livro.status)}
                 ${livro.status === "lendo" ? ` — ${progresso}%` : ""}
             </span>
+
+            <button
+                class="edit-button"
+                data-id="${livro.id}"
+                type="button">
+                Editar
+            </button>
         `;
 
         bookGrid.appendChild(card);
+
+        const btnEditar = card.querySelector(".edit-button");
+
+        btnEditar.addEventListener("click", event => {
+            event.preventDefault();
+            editarLivro(Number(btnEditar.dataset.id));
+        });
     });
 }
 
 function filtrarLivros() {
-    const pesquisa = searchBook.value
-        .toLowerCase()
-        .trim();
-
+    const pesquisa = searchBook.value.toLowerCase().trim();
     const status = statusFilter.value;
     const ordenacao = sortBooks.value;
 
     let resultado = livros.filter(livro => {
         const correspondePesquisa =
-            livro.titulo
-                .toLowerCase()
-                .includes(pesquisa) ||
-            livro.autor
-                .toLowerCase()
-                .includes(pesquisa);
+            livro.titulo.toLowerCase().includes(pesquisa) ||
+            livro.autor.toLowerCase().includes(pesquisa);
 
         const correspondeStatus =
-            status === "todos" ||
-            livro.status === status;
+            status === "todos" || livro.status === status;
 
         return correspondePesquisa && correspondeStatus;
     });
@@ -115,27 +129,93 @@ function filtrarLivros() {
     renderizarLivros(resultado);
 }
 
-searchBook.addEventListener("input", filtrarLivros);
-statusFilter.addEventListener("change", filtrarLivros);
-sortBooks.addEventListener("change", filtrarLivros);
-
-renderizarLivros(livros);
-
-const bookModal = document.getElementById("bookModal");
-const bookForm = document.getElementById("bookForm");
-const btnAdicionar = document.getElementById("btnAdicionar");
-const btnAdicionarLivro = document.getElementById("btnAdicionarLivro");
-const btnFecharModal = document.getElementById("btnFecharModal");
-const btnCancelar = document.getElementById("btnCancelar");
-
 function abrirModal() {
+    livroEditandoId = null;
+    modalTitle.textContent = "Adicionar livro";
+    btnSalvarLivro.textContent = "Salvar livro";
+    bookForm.reset();
     bookModal.classList.add("active");
 }
 
 function fecharModal() {
     bookModal.classList.remove("active");
     bookForm.reset();
+    livroEditandoId = null;
 }
+
+function editarLivro(id) {
+    const livro = livros.find(livro => livro.id === id);
+
+    if (!livro) return;
+
+    livroEditandoId = id;
+
+    modalTitle.textContent = "Editar livro";
+    btnSalvarLivro.textContent = "Salvar alterações";
+
+    document.getElementById("titulo").value = livro.titulo;
+    document.getElementById("autor").value = livro.autor;
+    document.getElementById("genero").value = livro.genero;
+    document.getElementById("paginas").value = livro.paginas;
+    document.getElementById("status").value = livro.status;
+    document.getElementById("nota").value = livro.nota;
+    document.getElementById("capa").value = livro.capa;
+    document.getElementById("descricao").value = livro.descricao;
+
+    bookModal.classList.add("active");
+}
+
+function salvarFormulario() {
+    const titulo = document.getElementById("titulo").value.trim();
+    const autor = document.getElementById("autor").value.trim();
+    const genero = document.getElementById("genero").value.trim();
+    const paginas = Number(document.getElementById("paginas").value);
+    const status = document.getElementById("status").value;
+    const nota = Number(document.getElementById("nota").value);
+    const capa = document.getElementById("capa").value.trim();
+    const descricao = document.getElementById("descricao").value.trim();
+
+    if (livroEditandoId === null) {
+        const novoLivro = {
+            id: Date.now(),
+            titulo,
+            autor,
+            genero,
+            paginas,
+            paginasLidas: 0,
+            status,
+            nota,
+            capa,
+            descricao,
+            anotacoes: ""
+        };
+
+        livros.push(novoLivro);
+    } else {
+        const livro = livros.find(
+            livro => livro.id === livroEditandoId
+        );
+
+        if (!livro) return;
+
+        livro.titulo = titulo;
+        livro.autor = autor;
+        livro.genero = genero;
+        livro.paginas = paginas;
+        livro.status = status;
+        livro.nota = nota;
+        livro.capa = capa;
+        livro.descricao = descricao;
+    }
+
+    salvarLivros(livros);
+    renderizarLivros(livros);
+    fecharModal();
+}
+
+searchBook.addEventListener("input", filtrarLivros);
+statusFilter.addEventListener("change", filtrarLivros);
+sortBooks.addEventListener("change", filtrarLivros);
 
 btnAdicionar.addEventListener("click", abrirModal);
 btnAdicionarLivro.addEventListener("click", abrirModal);
@@ -143,33 +223,12 @@ btnFecharModal.addEventListener("click", fecharModal);
 btnCancelar.addEventListener("click", fecharModal);
 
 bookModal.addEventListener("click", event => {
-    if (event.target === bookModal) {
-        fecharModal();
-    }
+    if (event.target === bookModal) fecharModal();
 });
 
 bookForm.addEventListener("submit", event => {
     event.preventDefault();
+    salvarFormulario();
+});
 
-    const novoLivro = {
-        id: Date.now(),
-        titulo: document.getElementById("titulo").value.trim(),
-        autor: document.getElementById("autor").value.trim(),
-        genero: document.getElementById("genero").value.trim(),
-        paginas: Number(document.getElementById("paginas").value),
-        paginasLidas: 0,
-        status: document.getElementById("status").value,
-        nota: Number(document.getElementById("nota").value),
-        capa: document.getElementById("capa").value.trim(),
-        descricao: document.getElementById("descricao").value.trim(),
-        anotacoes: ""
-    };
-
-    livros.push(novoLivro);
-
-    salvarLivros(livros);
-
-    renderizarLivros(livros);
-
-    fecharModal();
-}); 
+renderizarLivros(livros);

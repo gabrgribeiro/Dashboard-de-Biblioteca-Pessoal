@@ -9,9 +9,9 @@
 </head>
 <body>
     <header class="header">
-        <h1>Biblioteca</h1>
+        <h1>Minha Biblioteca</h1>
+
         <div class="header-actions">
-            <button type="button">🔍</button>
             <span>👤 Gabriel</span>
         </div>
     </header>
@@ -23,13 +23,21 @@
         </div>
 
         <ul>
-            <li><a href="../index.html">🏠 Dashboard</a></li>
-            <li><a class="active" href="biblioteca.html">📖 Biblioteca</a></li>
-            <li><a href="estatisticas.html">📊 Estatísticas</a></li>
+            <li>
+                <a href="../index.html">🏠 Dashboard</a>
+            </li>
+            <li>
+                <a class="active" href="biblioteca.html">📖 Biblioteca</a>
+            </li>
+            <li>
+                <a href="estatisticas.html">📊 Estatísticas</a>
+            </li>
         </ul>
 
         <div class="menu-add">
-            <button id="btnAdicionar" type="button">＋ Adicionar livro</button>
+            <button id="btnAdicionar" type="button">
+                ＋ Adicionar livro
+            </button>
         </div>
 
         <div class="menu-settings">
@@ -41,17 +49,21 @@
         <section class="library">
             <div class="page-header">
                 <div>
-                    <h2>Minha biblioteca</h2>
-                    <p>Gerencie todos os seus livros.</p>
+                    <h2>Biblioteca</h2>
+                    <p>Todos os seus livros.</p>
                 </div>
 
-                <button class="primary-button" id="btnAdicionarLivro" type="button">
+                <button id="btnAdicionarLivro" type="button">
                     ＋ Adicionar livro
                 </button>
             </div>
 
             <div class="filters">
-                <input id="searchBook" type="search" placeholder="Pesquisar livro...">
+                <input
+                    id="searchBook"
+                    type="search"
+                    placeholder="Pesquisar livro..."
+                >
 
                 <select id="statusFilter">
                     <option value="todos">Todos</option>
@@ -76,8 +88,11 @@
     <div class="modal-overlay" id="bookModal">
         <div class="modal">
             <div class="modal-header">
-                <h2>Adicionar livro</h2>
-                <button id="btnFecharModal" type="button">&times;</button>
+                <h2 id="modalTitle">Adicionar livro</h2>
+
+                <button id="btnFecharModal" type="button">
+                    &times;
+                </button>
             </div>
 
             <form id="bookForm">
@@ -105,6 +120,7 @@
 
                 <div class="form-group">
                     <label for="status">Status</label>
+
                     <select id="status">
                         <option value="quero-ler">Quero ler</option>
                         <option value="lendo">Lendo</option>
@@ -115,12 +131,25 @@
 
                 <div class="form-group">
                     <label for="nota">Nota</label>
-                    <input id="nota" type="number" min="0" max="10" step="0.1" value="0">
+
+                    <input
+                        id="nota"
+                        type="number"
+                        min="0"
+                        max="10"
+                        step="0.1"
+                        value="0"
+                    >
                 </div>
 
                 <div class="form-group">
                     <label for="capa">URL da capa</label>
-                    <input id="capa" type="url" placeholder="https://...">
+
+                    <input
+                        id="capa"
+                        type="url"
+                        placeholder="https://..."
+                    >
                 </div>
 
                 <div class="form-group">
@@ -129,8 +158,13 @@
                 </div>
 
                 <div class="modal-actions">
-                    <button id="btnCancelar" type="button">Cancelar</button>
-                    <button type="submit">Salvar livro</button>
+                    <button id="btnCancelar" type="button">
+                        Cancelar
+                    </button>
+
+                    <button id="btnSalvarLivro" type="submit">
+                        Salvar livro
+                    </button>
                 </div>
             </form>
         </div>

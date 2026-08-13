@@ -2,15 +2,36 @@
     padding: 35px;
 }
 
+.page-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.page-header h2 {
+    margin-bottom: 5px;
+}
+
+.page-header p {
+    color: #666;
+}
+
+.page-header button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
 .filters {
     display: grid;
-    grid-template-columns:
-        2fr 1fr 1fr;
-
+    grid-template-columns: 2fr 1fr 1fr;
     gap: 12px;
     margin-bottom: 30px;
 }
-
 
 .filters input,
 .filters select,
@@ -24,9 +45,7 @@
 
 .book-grid {
     display: grid;
-    grid-template-columns:
-        repeat(4, minmax(160px, 1fr));
-
+    grid-template-columns: repeat(4, minmax(160px, 1fr));
     gap: 20px;
 }
 
@@ -34,10 +53,8 @@
     padding: 15px;
     border-radius: 12px;
     background: #eee;
-    box-shadow:
-        0 3px 10px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
 }
-
 
 .library-card .book-cover {
     width: 100%;
@@ -67,19 +84,40 @@
     font-size: 0.8rem;
 }
 
-.status.read {
+.status.lido {
     background: #d4edda;
     color: #286c37;
 }
 
-.status.reading {
+.status.lendo {
     background: #d9edf7;
     color: #28627a;
 }
 
-.status.want {
+.status.quero-ler {
     background: #eee0c2;
     color: #735c22;
+}
+
+.status.abandonado {
+    background: #f5d6d6;
+    color: #8b3030;
+}
+
+.edit-button {
+    display: block;
+    width: 100%;
+    margin-top: 12px;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background: #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.edit-button:hover {
+    background: #555;
 }
 
 @media (max-width: 1000px) {
@@ -96,6 +134,7 @@
     .page-header {
         align-items: flex-start;
         flex-direction: column;
+        gap: 15px;
     }
 
     .filters {

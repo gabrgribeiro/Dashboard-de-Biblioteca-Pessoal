@@ -9,7 +9,7 @@ const livrosIniciais = [
         status: "lido",
         nota: 9,
         capa: "",
-        descricao: "Bilbo Bolseiro vive tranquilamente até receber uma visita que muda completamente sua rotina.",
+        descricao: "Bilbo Bolseiro embarca em uma aventura inesperada ao lado de Gandalf e dos anões.",
         anotacoes: ""
     },
     {
@@ -18,29 +18,29 @@ const livrosIniciais = [
         autor: "Frank Herbert",
         genero: "Ficção científica",
         paginas: 680,
-        paginasLidas: 422,
+        paginasLidas: 421,
         status: "lendo",
         nota: 8.5,
         capa: "",
-        descricao: "Uma história de política, poder e sobrevivência em um planeta desértico.",
+        descricao: "Paul Atreides precisa enfrentar uma série de acontecimentos que mudarão o destino de Arrakis.",
         anotacoes: ""
     },
     {
         id: 3,
         titulo: "1984",
         autor: "George Orwell",
-        genero: "Distopia",
+        genero: "Ficção",
         paginas: 328,
         paginasLidas: 328,
         status: "lido",
         nota: 9.5,
         capa: "",
-        descricao: "Uma sociedade submetida à vigilância constante de um regime totalitário.",
+        descricao: "Uma sociedade controlada por um governo totalitário onde a vigilância é constante.",
         anotacoes: ""
     },
     {
         id: 4,
-        titulo: "It",
+        titulo: "It: A Coisa",
         autor: "Stephen King",
         genero: "Terror",
         paginas: 1104,
@@ -48,7 +48,7 @@ const livrosIniciais = [
         status: "quero-ler",
         nota: 0,
         capa: "",
-        descricao: "Uma entidade misteriosa aterroriza uma pequena cidade.",
+        descricao: "Um grupo de crianças enfrenta uma entidade sobrenatural que assombra a cidade de Derry.",
         anotacoes: ""
     }
 ];
