@@ -20,7 +20,7 @@ para uma aplicação full-stack.
 ## ✨ Funcionalidades
 
 ### Biblioteca
-- [ ] Cadastrar livros
+- [x] Cadastrar livros
 - [ ] Editar livros
 - [ ] Excluir livros
 - [ ] Pesquisar livros
