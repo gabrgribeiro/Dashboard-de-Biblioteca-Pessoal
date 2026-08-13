@@ -69,17 +69,23 @@ para uma aplicação full-stack.
 personal-library/
 │
 ├── index.html
+├── README.md
+│
+├── pages/
+│   ├── biblioteca.html
+│   ├── livro.html
+│   └── estatisticas.html
 │
 ├── css/
-│   └── style.css
+│   ├── style.css
+│   ├── dashboard.css
+│   ├── biblioteca.css
+│   ├── livro.css
+│   └── estatisticas.css
 │
-├── js/
-│   ├── app.js
-│   ├── livros.js
-│   └── storage.js
-│
-├── assets/
-│   ├── images/
-│   └── icons/
-│
-└── README.md
+└── js/
+    ├── dados.js
+    ├── script.js
+    ├── biblioteca.js
+    ├── livro.js
+    └── estatisticas.js
