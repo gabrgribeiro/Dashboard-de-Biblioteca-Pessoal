@@ -21,18 +21,18 @@ para uma aplicação full-stack.
 
 ### Biblioteca
 - [x] Cadastrar livros
-- [ ] Editar livros
+- [x] Editar livros
 - [ ] Excluir livros
-- [ ] Pesquisar livros
-- [ ] Filtrar livros
-- [ ] Ordenar livros
+- [x] Pesquisar livros
+- [x] Filtrar livros
+- [x] Ordenar livros
 
 ### Leitura
 - [ ] Definir status de leitura
 - [ ] Acompanhar progresso
-- [ ] Registrar avaliação
+- [x] Registrar avaliação
 - [ ] Registrar datas de leitura
-- [ ] Adicionar anotações
+- [x] Adicionar anotações
 
 ### Dashboard
 - [x] Total de livros
