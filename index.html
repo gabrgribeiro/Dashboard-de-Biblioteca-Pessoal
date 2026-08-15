@@ -8,10 +8,8 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
-
     <header class="header">
         <h1>Minha Biblioteca</h1>
-
         <div class="header-actions">
             <span>👤 Gabriel</span>
         </div>
@@ -29,13 +27,11 @@
                     🏠 Dashboard
                 </a>
             </li>
-
             <li>
                 <a href="pages/biblioteca.html">
                     📖 Biblioteca
                 </a>
             </li>
-
             <li>
                 <a href="pages/estatisticas.html">
                     📊 Estatísticas
@@ -58,7 +54,6 @@
 
     <main class="main">
         <section class="dashboard">
-
             <div class="page-header">
                 <div>
                     <h2>Olá, Gabriel</h2>
@@ -67,7 +62,6 @@
             </div>
 
             <div class="dashboard-cards">
-
                 <div class="dashboard-card card">
                     <span id="totalLivros">0</span>
                     <p>Livros na biblioteca</p>
@@ -82,45 +76,30 @@
                     <span id="totalLendo">0</span>
                     <p>Livros lendo</p>
                 </div>
-
             </div>
 
             <section class="dashboard-section">
-
                 <h2>Continue lendo</h2>
-
-                <div
-                    class="reading-grid"
-                    id="continueReading"
-                ></div>
-
+                <div class="reading-grid" id="continueReading"></div>
             </section>
 
             <section class="dashboard-section">
-
                 <h2>Leitura em 2026</h2>
 
                 <div class="chart-card card">
-
-                    <div
-                        class="chart-placeholder"
-                        id="readingChart"
-                    >
+                    <div class="chart-placeholder">
                         Gráfico será implementado posteriormente.
                     </div>
-
                 </div>
-
             </section>
-
         </section>
     </main>
 
     <footer class="footer">
-        <p>
-            Personal Library &copy; 2026
-        </p>
+        <p>Personal Library &copy; 2026</p>
     </footer>
 
+    <script src="js/dados.js"></script>
+    <script src="js/dashboard.js"></script>
 </body>
 </html>

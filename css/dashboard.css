@@ -2,15 +2,11 @@
     padding: 35px;
 }
 
-.dashboard .page-header {
-    margin-bottom: 30px;
-}
-
 .dashboard-cards {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .dashboard-card {
@@ -30,7 +26,7 @@
 }
 
 .dashboard-section {
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .dashboard-section h2 {
@@ -46,6 +42,21 @@
 
 .reading-card {
     overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.reading-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+}
+
+.reading-card a {
+    color: inherit;
+    text-decoration: none;
 }
 
 .reading-card .book-cover {
@@ -58,6 +69,13 @@
     background: #e2e8f0;
     color: var(--text-secondary);
     text-align: center;
+    overflow: hidden;
+}
+
+.reading-card .book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .reading-card-content {
@@ -70,7 +88,7 @@
 }
 
 .reading-card p {
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     color: var(--text-secondary);
     font-size: 0.9rem;
 }
@@ -106,14 +124,19 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 15px;
     border: 1px dashed var(--border);
     border-radius: var(--radius);
     background: #f8fafc;
     color: var(--text-secondary);
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1100px) {
+    .reading-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
     .dashboard-cards {
         grid-template-columns: repeat(2, 1fr);
     }
