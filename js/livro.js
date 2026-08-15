@@ -1,16 +1,22 @@
-let livros = carregarLivros();
+const params = new URLSearchParams(window.location.search);
+const livroId = Number(params.get("id"));
 
-const bookDetails = document.getElementById("bookDetails");
-
-const params = new URLSearchParams(
-    window.location.search
+const livro = carregarLivros().find(
+    livro => livro.id === livroId
 );
 
-const id = Number(params.get("id"));
-
-const livro = livros.find(
-    livro => livro.id === id
-);
+const bookTitle = document.getElementById("bookTitle");
+const bookAuthor = document.getElementById("bookAuthor");
+const bookGenre = document.getElementById("bookGenre");
+const bookPages = document.getElementById("bookPages");
+const bookRating = document.getElementById("bookRating");
+const bookStatus = document.getElementById("bookStatus");
+const bookDescription = document.getElementById("bookDescription");
+const bookCover = document.getElementById("bookCover");
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+const pagesProgress = document.getElementById("pagesProgress");
+const bookNotes = document.getElementById("bookNotes");
 
 function calcularProgresso(livro) {
     if (livro.paginas <= 0) {
@@ -33,102 +39,90 @@ function formatarStatus(status) {
     return statusMap[status] || status;
 }
 
-function renderizarLivro(livro) {
+function carregarLivro() {
+    if (!livro) {
+        bookTitle.textContent = "Livro não encontrado";
+        return;
+    }
+
     const progresso = calcularProgresso(livro);
 
-    bookDetails.innerHTML = `
-        <a class="back-link" href="biblioteca.html">
-            ← Voltar para biblioteca
-        </a>
+    bookTitle.textContent = livro.titulo;
+    bookAuthor.textContent = livro.autor;
+    bookGenre.textContent = livro.genero;
+    bookPages.textContent = `${livro.paginas} páginas`;
 
-        <div class="book-main">
-            <div class="book-cover large placeholder-cover">
-                ${livro.titulo}
-            </div>
+    bookRating.textContent =
+        livro.nota > 0
+            ? `★ ${livro.nota} / 10`
+            : "Sem nota";
 
-            <div class="book-info">
-                <h2>${livro.titulo}</h2>
+    bookStatus.textContent = formatarStatus(livro.status);
 
-                <h3>${livro.autor}</h3>
+    bookDescription.textContent =
+        livro.descricao || "Nenhuma descrição adicionada.";
 
-                <p>
-                    ${livro.genero} · ${livro.paginas} páginas
-                </p>
+    bookNotes.value = livro.anotacoes || "";
 
-                <div class="rating">
-                    ${livro.nota > 0
-                        ? `★ ${livro.nota} / 10`
-                        : "Sem nota"}
-                </div>
+    progressText.textContent = `${progresso}%`;
+    progressFill.style.width = `${progresso}%`;
 
-                <p>
-                    <strong>Status:</strong>
-                    ${formatarStatus(livro.status)}
-                </p>
+    pagesProgress.textContent =
+        `${livro.paginasLidas} / ${livro.paginas} páginas`;
 
-                <div class="progress-info">
-                    <span>Progresso</span>
-
-                    <strong>
-                        ${livro.paginasLidas} / ${livro.paginas} páginas
-                        — ${progresso}%
-                    </strong>
-                </div>
-
-                <div class="progress">
-                    <div
-                        class="progress-bar"
-                        style="width: ${progresso}%;">
-                    </div>
-                </div>
-
-                <button
-                    class="primary-button"
-                    type="button"
-                    id="btnProgresso">
-                    Atualizar progresso
-                </button>
-            </div>
-        </div>
-
-        <div class="description">
-            <h2>Descrição</h2>
-            <p>${livro.descricao}</p>
-        </div>
-
-        <div class="notes">
-            <h2>Anotações</h2>
-
-            <textarea
-                id="anotacoes"
-                placeholder="Escreva suas anotações sobre o livro...">${livro.anotacoes}</textarea>
-        </div>
-
-        <div class="book-actions">
-            <button
-                class="secondary-button"
-                id="btnEditar"
-                type="button">
-                Editar
-            </button>
-
-            <button
-                class="danger-button"
-                id="btnExcluir"
-                type="button">
-                Excluir
-            </button>
-        </div>
-    `;
+    if (livro.capa) {
+        bookCover.innerHTML = `
+            <img src="${livro.capa}" alt="Capa de ${livro.titulo}">
+        `;
+    } else {
+        bookCover.textContent = livro.titulo;
+    }
 }
 
-if (!livro) {
-    bookDetails.innerHTML = `
-        <h2>Livro não encontrado</h2>
-        <a href="biblioteca.html">
-            Voltar para biblioteca
-        </a>
-    `;
-} else {
-    renderizarLivro(livro);
-}
+document.getElementById("btnExcluir").addEventListener("click", () => {
+    if (!livro) {
+        return;
+    }
+
+    const confirmar = confirm(
+        `Deseja realmente excluir "${livro.titulo}"?`
+    );
+
+    if (!confirmar) {
+        return;
+    }
+
+    const livros = carregarLivros();
+
+    const novosLivros = livros.filter(
+        item => item.id !== livro.id
+    );
+
+    salvarLivros(novosLivros);
+
+    window.location.href = "biblioteca.html";
+});
+
+document.getElementById("btnSalvarAnotacoes").addEventListener("click", () => {
+    if (!livro) {
+        return;
+    }
+
+    const livros = carregarLivros();
+
+    const livroAtualizado = livros.find(
+        item => item.id === livro.id
+    );
+
+    if (!livroAtualizado) {
+        return;
+    }
+
+    livroAtualizado.anotacoes = bookNotes.value.trim();
+
+    salvarLivros(livros);
+
+    alert("Anotações salvas.");
+});
+
+carregarLivro();

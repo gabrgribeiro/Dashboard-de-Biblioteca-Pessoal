@@ -9,7 +9,8 @@
 </head>
 <body>
     <header class="header">
-        <h1>Detalhes do livro</h1>
+        <h1>Minha Biblioteca</h1>
+
         <div class="header-actions">
             <span>👤 Gabriel</span>
         </div>
@@ -22,9 +23,15 @@
         </div>
 
         <ul>
-            <li><a href="../index.html">🏠 Dashboard</a></li>
-            <li><a class="active" href="biblioteca.html">📖 Biblioteca</a></li>
-            <li><a href="estatisticas.html">📊 Estatísticas</a></li>
+            <li>
+                <a href="../index.html">🏠 Dashboard</a>
+            </li>
+            <li>
+                <a class="active" href="biblioteca.html">📖 Biblioteca</a>
+            </li>
+            <li>
+                <a href="estatisticas.html">📊 Estatísticas</a>
+            </li>
         </ul>
 
         <div class="menu-add">
@@ -38,7 +45,76 @@
 
     <main class="main">
         <section class="book-details" id="bookDetails">
-            <p>Carregando livro...</p>
+            <a href="biblioteca.html" class="back-button">
+                ← Voltar para biblioteca
+            </a>
+
+            <div class="book-info">
+                <div class="book-cover-container">
+                    <div class="book-cover placeholder-cover" id="bookCover">
+                        Capa
+                    </div>
+                </div>
+
+                <div class="book-data">
+                    <h2 id="bookTitle">Carregando...</h2>
+                    <p id="bookAuthor"></p>
+
+                    <div class="book-meta">
+                        <span id="bookGenre"></span>
+                        <span id="bookPages"></span>
+                    </div>
+
+                    <div class="book-rating" id="bookRating"></div>
+
+                    <div class="book-status">
+                        <strong>Status:</strong>
+                        <span id="bookStatus"></span>
+                    </div>
+
+                    <div class="progress-section">
+                        <div class="progress-header">
+                            <strong>Progresso</strong>
+                            <span id="progressText">0%</span>
+                        </div>
+
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+
+                        <p id="pagesProgress">0 / 0 páginas</p>
+                    </div>
+
+                    <div class="book-actions">
+                        <button id="btnEditar" type="button">
+                            Editar
+                        </button>
+
+                        <button id="btnExcluir" type="button">
+                            Excluir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="book-description">
+                <h2>Descrição</h2>
+                <p id="bookDescription"></p>
+            </div>
+
+            <div class="book-notes">
+                <h2>Anotações</h2>
+
+                <textarea
+                    id="bookNotes"
+                    rows="6"
+                    placeholder="Escreva suas anotações sobre este livro..."
+                ></textarea>
+
+                <button id="btnSalvarAnotacoes" type="button">
+                    Salvar anotações
+                </button>
+            </div>
         </section>
     </main>
 
