@@ -24,13 +24,21 @@
 
         <ul>
             <li>
-                <a href="../index.html">🏠 Dashboard</a>
+                <a href="../index.html">
+                    🏠 Dashboard
+                </a>
             </li>
+
             <li>
-                <a class="active" href="biblioteca.html">📖 Biblioteca</a>
+                <a class="active" href="biblioteca.html">
+                    📖 Biblioteca
+                </a>
             </li>
+
             <li>
-                <a href="estatisticas.html">📊 Estatísticas</a>
+                <a href="estatisticas.html">
+                    📊 Estatísticas
+                </a>
             </li>
         </ul>
 
@@ -41,7 +49,9 @@
         </div>
 
         <div class="menu-settings">
-            <a href="#">⚙ Configurações</a>
+            <a href="#">
+                ⚙ Configurações
+            </a>
         </div>
     </nav>
 
@@ -53,7 +63,11 @@
                     <p>Todos os seus livros.</p>
                 </div>
 
-                <button id="btnAdicionarLivro" type="button">
+                <button
+                    id="btnAdicionarLivro"
+                    class="primary-button"
+                    type="button"
+                >
                     ＋ Adicionar livro
                 </button>
             </div>
@@ -81,56 +95,111 @@
                 </select>
             </div>
 
-            <div class="book-grid" id="bookGrid"></div>
+            <div
+                class="book-grid"
+                id="bookGrid"
+            ></div>
         </section>
     </main>
 
-    <div class="modal-overlay" id="bookModal">
+    <div
+        class="modal-overlay"
+        id="bookModal"
+    >
         <div class="modal">
             <div class="modal-header">
-                <h2 id="modalTitle">Adicionar livro</h2>
+                <h2 id="modalTitle">
+                    Adicionar livro
+                </h2>
 
-                <button id="btnFecharModal" type="button">
+                <button
+                    id="btnFecharModal"
+                    type="button"
+                >
                     &times;
                 </button>
             </div>
 
             <form id="bookForm">
                 <div class="form-group">
-                    <label for="titulo">Título</label>
-                    <input id="titulo" type="text" required>
+                    <label for="titulo">
+                        Título
+                    </label>
+
+                    <input
+                        id="titulo"
+                        type="text"
+                        required
+                    >
                 </div>
 
                 <div class="form-group">
-                    <label for="autor">Autor</label>
-                    <input id="autor" type="text" required>
+                    <label for="autor">
+                        Autor
+                    </label>
+
+                    <input
+                        id="autor"
+                        type="text"
+                        required
+                    >
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="genero">Gênero</label>
-                        <input id="genero" type="text" required>
+                        <label for="genero">
+                            Gênero
+                        </label>
+
+                        <input
+                            id="genero"
+                            type="text"
+                            required
+                        >
                     </div>
 
                     <div class="form-group">
-                        <label for="paginas">Páginas</label>
-                        <input id="paginas" type="number" min="1" required>
+                        <label for="paginas">
+                            Páginas
+                        </label>
+
+                        <input
+                            id="paginas"
+                            type="number"
+                            min="1"
+                            required
+                        >
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="status">Status</label>
+                    <label for="status">
+                        Status
+                    </label>
 
                     <select id="status">
-                        <option value="quero-ler">Quero ler</option>
-                        <option value="lendo">Lendo</option>
-                        <option value="lido">Lido</option>
-                        <option value="abandonado">Abandonado</option>
+                        <option value="quero-ler">
+                            Quero ler
+                        </option>
+
+                        <option value="lendo">
+                            Lendo
+                        </option>
+
+                        <option value="lido">
+                            Lido
+                        </option>
+
+                        <option value="abandonado">
+                            Abandonado
+                        </option>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label for="nota">Nota</label>
+                    <label for="nota">
+                        Nota
+                    </label>
 
                     <input
                         id="nota"
@@ -143,7 +212,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="capa">URL da capa</label>
+                    <label for="capa">
+                        URL da capa
+                    </label>
 
                     <input
                         id="capa"
@@ -153,16 +224,30 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="descricao">Descrição</label>
-                    <textarea id="descricao" rows="4"></textarea>
+                    <label for="descricao">
+                        Descrição
+                    </label>
+
+                    <textarea
+                        id="descricao"
+                        rows="4"
+                    ></textarea>
                 </div>
 
                 <div class="modal-actions">
-                    <button id="btnCancelar" type="button">
+                    <button
+                        id="btnCancelar"
+                        class="secondary-button"
+                        type="button"
+                    >
                         Cancelar
                     </button>
 
-                    <button id="btnSalvarLivro" type="submit">
+                    <button
+                        id="btnSalvarLivro"
+                        class="primary-button"
+                        type="submit"
+                    >
                         Salvar livro
                     </button>
                 </div>
@@ -171,7 +256,9 @@
     </div>
 
     <footer class="footer">
-        <p>Personal Library &copy; 2026</p>
+        <p>
+            Personal Library &copy; 2026
+        </p>
     </footer>
 
     <script src="../js/dados.js"></script>

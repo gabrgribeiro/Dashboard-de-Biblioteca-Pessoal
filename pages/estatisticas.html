@@ -9,7 +9,8 @@
 </head>
 <body>
     <header class="header">
-        <h1>Estatísticas</h1>
+        <h1>Minha Biblioteca</h1>
+
         <div class="header-actions">
             <span>👤 Gabriel</span>
         </div>
@@ -22,17 +23,35 @@
         </div>
 
         <ul>
-            <li><a href="../index.html">🏠 Dashboard</a></li>
-            <li><a href="biblioteca.html">📖 Biblioteca</a></li>
-            <li><a class="active" href="estatisticas.html">📊 Estatísticas</a></li>
+            <li>
+                <a href="../index.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="biblioteca.html">
+                    📖 Biblioteca
+                </a>
+            </li>
+
+            <li>
+                <a class="active" href="estatisticas.html">
+                    📊 Estatísticas
+                </a>
+            </li>
         </ul>
 
         <div class="menu-add">
-            <button type="button">＋ Adicionar livro</button>
+            <a href="biblioteca.html?adicionar=true">
+                ＋ Adicionar livro
+            </a>
         </div>
 
         <div class="menu-settings">
-            <a href="#">⚙ Configurações</a>
+            <a href="#">
+                ⚙ Configurações
+            </a>
         </div>
     </nav>
 
@@ -41,34 +60,59 @@
             <div class="page-header">
                 <div>
                     <h2>Estatísticas</h2>
-                    <p>Acompanhe seu histórico de leitura.</p>
+                    <p>
+                        Acompanhe seu histórico de leitura.
+                    </p>
                 </div>
 
                 <select id="yearFilter">
-                    <option value="2026">2026</option>
-                    <option value="2025">2025</option>
+                    <option value="2026">
+                        2026
+                    </option>
+
+                    <option value="2025">
+                        2025
+                    </option>
                 </select>
             </div>
 
             <div class="stats-cards">
                 <div class="stat-card">
-                    <span id="totalLidos">0</span>
-                    <p>Livros concluídos</p>
+                    <span id="totalLidos">
+                        0
+                    </span>
+
+                    <p>
+                        Livros concluídos
+                    </p>
                 </div>
 
                 <div class="stat-card">
-                    <span id="paginasLidas">0</span>
-                    <p>Páginas lidas</p>
+                    <span id="paginasLidas">
+                        0
+                    </span>
+
+                    <p>
+                        Páginas lidas
+                    </p>
                 </div>
 
                 <div class="stat-card">
-                    <span id="notaMedia">0</span>
-                    <p>Nota média</p>
+                    <span id="notaMedia">
+                        0
+                    </span>
+
+                    <p>
+                        Nota média
+                    </p>
                 </div>
             </div>
 
             <section class="chart-section">
-                <h2>Livros lidos por mês</h2>
+                <h2>
+                    Livros lidos por mês
+                </h2>
+
                 <div class="chart-placeholder">
                     Gráfico será implementado posteriormente.
                 </div>
@@ -76,12 +120,18 @@
 
             <div class="stats-columns">
                 <section class="data-card">
-                    <h2>Gêneros mais lidos</h2>
+                    <h2>
+                        Gêneros mais lidos
+                    </h2>
+
                     <div id="generosMaisLidos"></div>
                 </section>
 
                 <section class="data-card">
-                    <h2>Autores mais lidos</h2>
+                    <h2>
+                        Autores mais lidos
+                    </h2>
+
                     <div id="autoresMaisLidos"></div>
                 </section>
             </div>
@@ -89,7 +139,9 @@
     </main>
 
     <footer class="footer">
-        <p>Personal Library &copy; 2026</p>
+        <p>
+            Personal Library &copy; 2026
+        </p>
     </footer>
 
     <script src="../js/dados.js"></script>

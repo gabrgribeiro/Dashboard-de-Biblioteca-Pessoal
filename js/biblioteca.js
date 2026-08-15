@@ -232,3 +232,10 @@ bookForm.addEventListener("submit", event => {
 });
 
 renderizarLivros(livros);
+
+const parametros = new URLSearchParams(window.location.search);
+
+if (parametros.get("adicionar") === "true") {
+    abrirModal();
+    window.history.replaceState({}, document.title, "biblioteca.html");
+}

@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="css/dashboard.css">
 </head>
 <body>
+
     <header class="header">
         <h1>Minha Biblioteca</h1>
+
         <div class="header-actions">
-            <button type="button">🔍</button>
             <span>👤 Gabriel</span>
         </div>
     </header>
@@ -23,65 +24,103 @@
         </div>
 
         <ul>
-            <li><a class="active" href="index.html">🏠 Dashboard</a></li>
-            <li><a href="pages/biblioteca.html">📖 Biblioteca</a></li>
-            <li><a href="pages/estatisticas.html">📊 Estatísticas</a></li>
+            <li>
+                <a class="active" href="index.html">
+                    🏠 Dashboard
+                </a>
+            </li>
+
+            <li>
+                <a href="pages/biblioteca.html">
+                    📖 Biblioteca
+                </a>
+            </li>
+
+            <li>
+                <a href="pages/estatisticas.html">
+                    📊 Estatísticas
+                </a>
+            </li>
         </ul>
 
         <div class="menu-add">
-            <button id="btnAdicionar" type="button">＋ Adicionar livro</button>
+            <a href="pages/biblioteca.html?adicionar=true">
+                ＋ Adicionar livro
+            </a>
         </div>
 
         <div class="menu-settings">
-            <a href="#">⚙ Configurações</a>
+            <a href="#">
+                ⚙ Configurações
+            </a>
         </div>
     </nav>
 
     <main class="main">
         <section class="dashboard">
-            <div class="dashboard-header">
-                <h2>Olá, Gabriel</h2>
-                <p>Veja como está sua biblioteca.</p>
+
+            <div class="page-header">
+                <div>
+                    <h2>Olá, Gabriel</h2>
+                    <p>Visão geral da sua biblioteca.</p>
+                </div>
             </div>
 
-            <div class="stats-cards">
-                <div class="stat-card">
+            <div class="dashboard-cards">
+
+                <div class="dashboard-card card">
                     <span id="totalLivros">0</span>
-                    <p>Livros</p>
+                    <p>Livros na biblioteca</p>
                 </div>
-                <div class="stat-card">
-                    <span id="livrosLidos">0</span>
-                    <p>Lidos</p>
+
+                <div class="dashboard-card card">
+                    <span id="totalLidos">0</span>
+                    <p>Livros concluídos</p>
                 </div>
-                <div class="stat-card">
-                    <span id="livrosLendo">0</span>
-                    <p>Lendo</p>
+
+                <div class="dashboard-card card">
+                    <span id="totalLendo">0</span>
+                    <p>Livros lendo</p>
                 </div>
+
             </div>
 
-            <section class="continue-reading">
-                <div class="section-title">
-                    <h2>Continue lendo</h2>
-                    <a href="pages/biblioteca.html">Ver biblioteca</a>
-                </div>
+            <section class="dashboard-section">
 
-                <div class="book-list" id="continueReading"></div>
+                <h2>Continue lendo</h2>
+
+                <div
+                    class="reading-grid"
+                    id="continueReading"
+                ></div>
+
             </section>
 
-            <section class="reading-chart">
+            <section class="dashboard-section">
+
                 <h2>Leitura em 2026</h2>
-                <div class="chart-placeholder">
-                    Gráfico será implementado posteriormente.
+
+                <div class="chart-card card">
+
+                    <div
+                        class="chart-placeholder"
+                        id="readingChart"
+                    >
+                        Gráfico será implementado posteriormente.
+                    </div>
+
                 </div>
+
             </section>
+
         </section>
     </main>
 
     <footer class="footer">
-        <p>Personal Library &copy; 2026</p>
+        <p>
+            Personal Library &copy; 2026
+        </p>
     </footer>
 
-    <script src="js/dados.js"></script>
-    <script src="js/script.js"></script>
 </body>
 </html>

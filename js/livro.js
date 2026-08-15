@@ -1,7 +1,9 @@
 const params = new URLSearchParams(window.location.search);
 const livroId = Number(params.get("id"));
 
-const livro = carregarLivros().find(
+let livros = carregarLivros();
+
+let livro = livros.find(
     livro => livro.id === livroId
 );
 
@@ -17,6 +19,8 @@ const progressText = document.getElementById("progressText");
 const progressFill = document.getElementById("progressFill");
 const pagesProgress = document.getElementById("pagesProgress");
 const bookNotes = document.getElementById("bookNotes");
+const paginasLidasInput = document.getElementById("paginasLidas");
+const btnAtualizarProgresso = document.getElementById("btnAtualizarProgresso");
 
 function calcularProgresso(livro) {
     if (livro.paginas <= 0) {
@@ -70,6 +74,8 @@ function carregarLivro() {
     pagesProgress.textContent =
         `${livro.paginasLidas} / ${livro.paginas} páginas`;
 
+    paginasLidasInput.value = livro.paginasLidas;
+
     if (livro.capa) {
         bookCover.innerHTML = `
             <img src="${livro.capa}" alt="Capa de ${livro.titulo}">
@@ -78,6 +84,48 @@ function carregarLivro() {
         bookCover.textContent = livro.titulo;
     }
 }
+
+btnAtualizarProgresso.addEventListener("click", () => {
+    if (!livro) {
+        return;
+    }
+
+    const paginasLidas = Number(
+        paginasLidasInput.value
+    );
+
+    if (paginasLidas < 0) {
+        alert("O número de páginas não pode ser negativo.");
+        return;
+    }
+
+    if (paginasLidas > livro.paginas) {
+        alert("As páginas lidas não podem ultrapassar o total de páginas.");
+        return;
+    }
+
+    livros = carregarLivros();
+
+    livro = livros.find(
+        item => item.id === livroId
+    );
+
+    if (!livro) {
+        return;
+    }
+
+    livro.paginasLidas = paginasLidas;
+
+    if (paginasLidas === livro.paginas) {
+        livro.status = "lido";
+    } else if (paginasLidas > 0 && livro.status === "quero-ler") {
+        livro.status = "lendo";
+    }
+
+    salvarLivros(livros);
+
+    carregarLivro();
+});
 
 document.getElementById("btnExcluir").addEventListener("click", () => {
     if (!livro) {
@@ -92,7 +140,7 @@ document.getElementById("btnExcluir").addEventListener("click", () => {
         return;
     }
 
-    const livros = carregarLivros();
+    livros = carregarLivros();
 
     const novosLivros = livros.filter(
         item => item.id !== livro.id
@@ -108,7 +156,7 @@ document.getElementById("btnSalvarAnotacoes").addEventListener("click", () => {
         return;
     }
 
-    const livros = carregarLivros();
+    livros = carregarLivros();
 
     const livroAtualizado = livros.find(
         item => item.id === livro.id
@@ -121,6 +169,8 @@ document.getElementById("btnSalvarAnotacoes").addEventListener("click", () => {
     livroAtualizado.anotacoes = bookNotes.value.trim();
 
     salvarLivros(livros);
+
+    livro = livroAtualizado;
 
     alert("Anotações salvas.");
 });
