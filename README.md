@@ -22,7 +22,7 @@ para uma aplicação full-stack.
 ### Biblioteca
 - [x] Cadastrar livros
 - [x] Editar livros
-- [ ] Excluir livros
+- [X] Excluir livros
 - [x] Pesquisar livros
 - [x] Filtrar livros
 - [x] Ordenar livros
