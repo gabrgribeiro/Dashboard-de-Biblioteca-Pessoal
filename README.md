@@ -28,8 +28,8 @@ para uma aplicação full-stack.
 - [x] Ordenar livros
 
 ### Leitura
-- [ ] Definir status de leitura
-- [ ] Acompanhar progresso
+- [x] Definir status de leitura
+- [x] Acompanhar progresso
 - [x] Registrar avaliação
 - [ ] Registrar datas de leitura
 - [x] Adicionar anotações
