@@ -28,6 +28,10 @@ function formatarStatus(status) {
 }
 
 function renderizarLivros(lista) {
+    if (!bookGrid) {
+        return;
+    }
+
     bookGrid.innerHTML = "";
 
     if (lista.length === 0) {
@@ -36,7 +40,6 @@ function renderizarLivros(lista) {
                 Nenhum livro encontrado.
             </p>
         `;
-
         return;
     }
 
@@ -46,23 +49,20 @@ function renderizarLivros(lista) {
         const card = document.createElement("article");
         card.classList.add("library-card");
 
-        const capa = livro.capa
-            ? `<img src="${livro.capa}" alt="Capa de ${livro.titulo}">`
-            : `<div class="book-cover placeholder-cover">${livro.titulo}</div>`;
-
         card.innerHTML = `
             <a href="livro.html?id=${livro.id}">
-                ${livro.capa
-                    ? `
-                        <div class="book-cover">
-                            <img src="${livro.capa}" alt="Capa de ${livro.titulo}">
-                        </div>
-                    `
-                    : `
-                        <div class="book-cover placeholder-cover">
-                            ${livro.titulo}
-                        </div>
-                    `
+                ${
+                    livro.capa
+                        ? `
+                            <div class="book-cover">
+                                <img src="${livro.capa}" alt="Capa de ${livro.titulo}">
+                            </div>
+                        `
+                        : `
+                            <div class="book-cover placeholder-cover">
+                                ${livro.titulo}
+                            </div>
+                        `
                 }
             </a>
 
@@ -75,7 +75,11 @@ function renderizarLivros(lista) {
 
             <span class="status ${livro.status}">
                 ${formatarStatus(livro.status)}
-                ${livro.status === "lendo" ? ` — ${progresso}%` : ""}
+                ${
+                    livro.status === "lendo"
+                        ? ` — ${progresso}%`
+                        : ""
+                }
             </span>
         `;
 
@@ -84,6 +88,10 @@ function renderizarLivros(lista) {
 }
 
 function filtrarLivros() {
+    if (!searchBook || !statusFilter || !sortBooks) {
+        return;
+    }
+
     const pesquisa = searchBook.value
         .toLowerCase()
         .trim();
@@ -129,9 +137,26 @@ function filtrarLivros() {
     renderizarLivros(resultado);
 }
 
-searchBook.addEventListener("input", filtrarLivros);
-statusFilter.addEventListener("change", filtrarLivros);
-sortBooks.addEventListener("change", filtrarLivros);
+if (searchBook) {
+    searchBook.addEventListener(
+        "input",
+        filtrarLivros
+    );
+}
+
+if (statusFilter) {
+    statusFilter.addEventListener(
+        "change",
+        filtrarLivros
+    );
+}
+
+if (sortBooks) {
+    sortBooks.addEventListener(
+        "change",
+        filtrarLivros
+    );
+}
 
 renderizarLivros(livros);
 
@@ -147,6 +172,10 @@ const btnSalvarLivro = document.getElementById("btnSalvarLivro");
 let livroEditandoId = null;
 
 function abrirModal() {
+    if (!bookModal || !bookForm) {
+        return;
+    }
+
     livroEditandoId = null;
 
     modalTitle.textContent = "Adicionar livro";
@@ -158,6 +187,10 @@ function abrirModal() {
 }
 
 function fecharModal() {
+    if (!bookModal || !bookForm) {
+        return;
+    }
+
     bookModal.classList.remove("active");
     bookForm.reset();
     livroEditandoId = null;
@@ -183,130 +216,174 @@ function editarLivro(id) {
     document.getElementById("paginas").value = livro.paginas;
     document.getElementById("status").value = livro.status;
     document.getElementById("nota").value = livro.nota;
-    document.getElementById("capa").value = livro.capa;
-    document.getElementById("descricao").value = livro.descricao;
+    document.getElementById("capa").value = livro.capa || "";
+    document.getElementById("descricao").value = livro.descricao || "";
 
     bookModal.classList.add("active");
 }
 
 if (btnAdicionar) {
-    btnAdicionar.addEventListener("click", abrirModal);
+    btnAdicionar.addEventListener(
+        "click",
+        abrirModal
+    );
 }
 
 if (btnAdicionarLivro) {
-    btnAdicionarLivro.addEventListener("click", abrirModal);
+    btnAdicionarLivro.addEventListener(
+        "click",
+        abrirModal
+    );
 }
 
-btnFecharModal.addEventListener("click", fecharModal);
-btnCancelar.addEventListener("click", fecharModal);
-
-bookModal.addEventListener("click", event => {
-    if (event.target === bookModal) {
-        fecharModal();
-    }
-});
-
-bookForm.addEventListener("submit", event => {
-    event.preventDefault();
-
-    const titulo = document
-        .getElementById("titulo")
-        .value
-        .trim();
-
-    const autor = document
-        .getElementById("autor")
-        .value
-        .trim();
-
-    const genero = document
-        .getElementById("genero")
-        .value
-        .trim();
-
-    const paginas = Number(
-        document.getElementById("paginas").value
+if (btnFecharModal) {
+    btnFecharModal.addEventListener(
+        "click",
+        fecharModal
     );
+}
 
-    const status = document
-        .getElementById("status")
-        .value;
-
-    const nota = Number(
-        document.getElementById("nota").value
+if (btnCancelar) {
+    btnCancelar.addEventListener(
+        "click",
+        fecharModal
     );
+}
 
-    const capa = document
-        .getElementById("capa")
-        .value
-        .trim();
-
-    const descricao = document
-        .getElementById("descricao")
-        .value
-        .trim();
-
-    if (livroEditandoId === null) {
-        const novoLivro = {
-            id: Date.now(),
-            titulo,
-            autor,
-            genero,
-            paginas,
-            paginasLidas: 0,
-            status,
-            nota,
-            capa,
-            descricao,
-            anotacoes: "",
-            dataConclusao: status === "lido"
-                ? new Date().toISOString().split("T")[0]
-                : null
-        };
-
-        livros.push(novoLivro);
-    } else {
-        const livro = livros.find(
-            livro => livro.id === livroEditandoId
-        );
-
-        if (!livro) {
-            return;
+if (bookModal) {
+    bookModal.addEventListener(
+        "click",
+        event => {
+            if (event.target === bookModal) {
+                fecharModal();
+            }
         }
+    );
+}
 
-        const statusAnterior = livro.status;
+if (bookForm) {
+    bookForm.addEventListener(
+        "submit",
+        event => {
+            event.preventDefault();
 
-        livro.titulo = titulo;
-        livro.autor = autor;
-        livro.genero = genero;
-        livro.paginas = paginas;
-        livro.status = status;
-        livro.nota = nota;
-        livro.capa = capa;
-        livro.descricao = descricao;
+            const titulo = document
+                .getElementById("titulo")
+                .value
+                .trim();
 
-        if (
-            status === "lido" &&
-            statusAnterior !== "lido"
-        ) {
-            livro.dataConclusao = new Date()
-                .toISOString()
-                .split("T")[0];
+            const autor = document
+                .getElementById("autor")
+                .value
+                .trim();
+
+            const genero = document
+                .getElementById("genero")
+                .value
+                .trim();
+
+            const paginas = Number(
+                document.getElementById("paginas").value
+            );
+
+            const status = document
+                .getElementById("status")
+                .value;
+
+            const nota = Number(
+                document.getElementById("nota").value
+            );
+
+            const capa = document
+                .getElementById("capa")
+                .value
+                .trim();
+
+            const descricao = document
+                .getElementById("descricao")
+                .value
+                .trim();
+
+            if (livroEditandoId === null) {
+                const novoLivro = {
+                    id: Date.now(),
+                    titulo,
+                    autor,
+                    genero,
+                    paginas,
+                    paginasLidas:
+                        status === "lido"
+                            ? paginas
+                            : 0,
+                    status,
+                    nota,
+                    capa,
+                    descricao,
+                    anotacoes: "",
+                    dataConclusao:
+                        status === "lido"
+                            ? new Date()
+                                .toISOString()
+                                .split("T")[0]
+                            : null
+                };
+
+                livros.push(novoLivro);
+            } else {
+                const livro = livros.find(
+                    livro => livro.id === livroEditandoId
+                );
+
+                if (!livro) {
+                    return;
+                }
+
+                const statusAnterior = livro.status;
+
+                livro.titulo = titulo;
+                livro.autor = autor;
+                livro.genero = genero;
+                livro.paginas = paginas;
+                livro.status = status;
+                livro.nota = nota;
+                livro.capa = capa;
+                livro.descricao = descricao;
+
+                if (status === "lido") {
+                    livro.paginasLidas = paginas;
+
+                    if (
+                        statusAnterior !== "lido" ||
+                        !livro.dataConclusao
+                    ) {
+                        livro.dataConclusao =
+                            new Date()
+                                .toISOString()
+                                .split("T")[0];
+                    }
+                } else {
+                    livro.dataConclusao = null;
+
+                    if (
+                        status === "quero-ler"
+                    ) {
+                        livro.paginasLidas = 0;
+                    }
+                }
+            }
+
+            salvarLivros(livros);
+
+            renderizarLivros(livros);
+
+            fecharModal();
         }
+    );
+}
 
-        if (status !== "lido") {
-            livro.dataConclusao = null;
-        }
-    }
-
-    salvarLivros(livros);
-
-    renderizarLivros(livros);
-
-    fecharModal();
-});
-
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(
+    window.location.search
+);
 
 if (params.get("adicionar") === "true") {
     abrirModal();
