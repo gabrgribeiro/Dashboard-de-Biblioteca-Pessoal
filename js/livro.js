@@ -27,8 +27,11 @@ function calcularProgresso(livro) {
         return 0;
     }
 
-    return Math.round(
-        (livro.paginasLidas / livro.paginas) * 100
+    return Math.min(
+        100,
+        Math.round(
+            (livro.paginasLidas / livro.paginas) * 100
+        )
     );
 }
 
@@ -41,6 +44,14 @@ function formatarStatus(status) {
     };
 
     return statusMap[status] || status;
+}
+
+function registrarDataConclusao(livro) {
+    if (!livro.dataConclusao) {
+        livro.dataConclusao = new Date()
+            .toISOString()
+            .split("T")[0];
+    }
 }
 
 function carregarLivro() {
@@ -114,12 +125,27 @@ btnAtualizarProgresso.addEventListener("click", () => {
         return;
     }
 
+    const statusAnterior = livro.status;
+
     livro.paginasLidas = paginasLidas;
 
     if (paginasLidas === livro.paginas) {
-        livro.status = "lido";
-    } else if (paginasLidas > 0 && livro.status === "quero-ler") {
+    livro.status = "lido";
+
+    if (statusAnterior !== "lido") {
+        registrarDataConclusao(livro);
+    }
+    
+    } else if (paginasLidas > 0) {
         livro.status = "lendo";
+        livro.dataConclusao = null;
+    } else {
+        livro.status = "quero-ler";
+        livro.dataConclusao = null;
+    }
+
+    if (livro.status !== "lido") {
+        livro.dataConclusao = null;
     }
 
     salvarLivros(livros);
@@ -166,7 +192,8 @@ document.getElementById("btnSalvarAnotacoes").addEventListener("click", () => {
         return;
     }
 
-    livroAtualizado.anotacoes = bookNotes.value.trim();
+    livroAtualizado.anotacoes =
+        bookNotes.value.trim();
 
     salvarLivros(livros);
 
