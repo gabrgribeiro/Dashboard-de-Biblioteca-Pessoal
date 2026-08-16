@@ -40,7 +40,7 @@ para uma aplicação full-stack.
 - [x] Livros em andamento
 - [x] Média das avaliações
 - [x] Páginas lidas
-- [ ] Estatísticas por gênero
+- [x] Estatísticas por gênero
 - [ ] Meta de leitura
 
 ---
