@@ -40,7 +40,7 @@ para uma aplicação full-stack.
 - [x] Livros em andamento
 - [x] Média das avaliações
 - [x] Páginas lidas
-- [ ] Estatísticas por gênero
+- [x] Estatísticas por gênero
 - [ ] Meta de leitura
 
 ---
@@ -86,6 +86,7 @@ personal-library/
 └── js/
     ├── dados.js
     ├── script.js
+    ├── dashboard.js
     ├── biblioteca.js
     ├── livro.js
     └── estatisticas.js
