@@ -1,6 +1,14 @@
+/* ================================
+   DASHBOARD
+================================ */
+
 .dashboard {
     padding: 35px;
 }
+
+/* ================================
+   CARDS DE RESUMO
+================================ */
 
 .dashboard-cards {
     display: grid;
@@ -11,23 +19,42 @@
 
 .dashboard-card {
     padding: 25px;
+
     background: var(--surface);
     border: 1px solid var(--border);
     border-radius: var(--radius);
+
     box-shadow: var(--shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-hover);
 }
 
 .dashboard-card span {
     display: block;
+
     margin-bottom: 8px;
+
     color: var(--primary);
+
     font-size: 2rem;
     font-weight: 700;
 }
 
 .dashboard-card p {
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
+
+/* ================================
+   CONTINUAR LENDO
+================================ */
 
 .continue-section {
     margin-bottom: 35px;
@@ -37,27 +64,44 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    gap: 20px;
     margin-bottom: 20px;
 }
 
 .section-title h2 {
-    margin-bottom: 6px;
+    margin-bottom: 5px;
+
+    color: var(--text);
+
     font-size: 1.3rem;
+    font-weight: 600;
 }
 
 .section-title p {
     color: var(--text-secondary);
+    font-size: 0.9rem;
 }
 
 .section-title a {
     color: var(--primary);
+
     text-decoration: none;
+
+    font-size: 0.9rem;
     font-weight: 600;
+
+    transition: color 0.2s ease;
 }
 
 .section-title a:hover {
+    color: var(--primary-hover);
     text-decoration: underline;
 }
+
+/* ================================
+   GRID DOS LIVROS
+================================ */
 
 .continue-grid {
     display: grid;
@@ -67,35 +111,64 @@
 
 .continue-card {
     overflow: hidden;
+
     background: var(--surface);
+
     border: 1px solid var(--border);
     border-radius: var(--radius);
+
     box-shadow: var(--shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.continue-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-hover);
 }
 
 .continue-card a {
+    display: block;
+
     color: inherit;
     text-decoration: none;
 }
 
+/* ================================
+   CAPA
+================================ */
+
 .continue-cover {
     width: 100%;
     height: 230px;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     padding: 20px;
+
     background: var(--background);
+
     color: var(--text-secondary);
+
     text-align: center;
+    font-size: 0.9rem;
     font-weight: 600;
 }
 
 .continue-cover img {
     width: 100%;
     height: 100%;
+
     object-fit: cover;
 }
+
+/* ================================
+   INFORMAÇÕES DO LIVRO
+================================ */
 
 .continue-info {
     padding: 18px;
@@ -103,91 +176,166 @@
 
 .continue-info h3 {
     margin-bottom: 6px;
+
+    overflow: hidden;
+
     color: var(--text);
+
+    font-size: 1rem;
+    font-weight: 600;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .continue-info p {
     margin-bottom: 15px;
+
+    overflow: hidden;
+
     color: var(--text-secondary);
+
+    font-size: 0.9rem;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
+
+/* ================================
+   PROGRESSO
+================================ */
 
 .progress {
     width: 100%;
     height: 8px;
+
     overflow: hidden;
+
     border-radius: 10px;
-    background: #e2e8f0;
+
+    background: var(--border);
 }
 
 .progress-bar {
     height: 100%;
+
     border-radius: inherit;
+
     background: var(--primary);
+
     transition: width 0.4s ease;
 }
 
 .progress-text {
     display: block;
+
     margin-top: 7px;
+
     color: var(--text-secondary);
+
     font-size: 0.8rem;
 }
 
+/* ================================
+   DASHBOARD VAZIO
+================================ */
+
 .empty-dashboard {
     padding: 30px;
+
     background: var(--surface);
+
     border: 1px solid var(--border);
     border-radius: var(--radius);
+
     box-shadow: var(--shadow);
+
     color: var(--text-secondary);
+
     text-align: center;
 }
+
+/* ================================
+   GRÁFICO
+================================ */
 
 .dashboard-chart {
     margin-bottom: 35px;
 }
 
+.dashboard-chart .section-title {
+    margin-bottom: 0;
+}
+
 .dashboard-chart .chart {
     display: flex;
+
     height: 300px;
-    margin-top: 25px;
+
+    margin-top: 20px;
     padding: 20px;
+
     background: var(--surface);
+
     border: 1px solid var(--border);
     border-radius: var(--radius);
+
     box-shadow: var(--shadow);
 }
 
+/* ================================
+   EIXO Y
+================================ */
+
 .chart-y {
     width: 35px;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-end;
+
     padding-bottom: 25px;
+
     color: var(--text-secondary);
+
     font-size: 0.8rem;
 }
 
+/* ================================
+   ÁREA DO GRÁFICO
+================================ */
+
 .chart-content {
     flex: 1;
+
     display: flex;
     flex-direction: column;
+
     margin-left: 15px;
 }
 
+/* ================================
+   BARRAS
+================================ */
+
 .chart-bars {
     flex: 1;
+
     display: flex;
     align-items: flex-end;
     justify-content: space-around;
+
     gap: 12px;
+
     border-bottom: 1px solid var(--border);
 }
 
 .bar-wrapper {
     height: 100%;
+
     flex: 1;
+
     display: flex;
     align-items: flex-end;
     justify-content: center;
@@ -197,27 +345,53 @@
     width: 100%;
     max-width: 45px;
     min-height: 0;
+
     display: flex;
     align-items: flex-start;
     justify-content: center;
+
     padding-top: 6px;
+
     border-radius: 6px 6px 0 0;
+
     background: var(--primary);
     color: #fff;
+
     font-size: 0.8rem;
-    transition: height 0.3s ease;
+    font-weight: 500;
+
+    transition:
+        height 0.3s ease,
+        background 0.2s ease;
 }
+
+.chart-bar:hover {
+    background: var(--primary-hover);
+}
+
+/* ================================
+   MESES
+================================ */
 
 .chart-months {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
+
     margin-top: 10px;
+
     text-align: center;
+
     color: var(--text-secondary);
+
     font-size: 0.8rem;
 }
 
+/* ================================
+   RESPONSIVIDADE
+================================ */
+
 @media (max-width: 1000px) {
+
     .dashboard-cards {
         grid-template-columns: repeat(2, 1fr);
     }
@@ -227,7 +401,19 @@
     }
 }
 
+@media (max-width: 800px) {
+
+    .dashboard {
+        padding: 25px;
+    }
+
+    .dashboard-chart .chart {
+        height: 280px;
+    }
+}
+
 @media (max-width: 600px) {
+
     .dashboard {
         padding: 20px;
     }
@@ -258,5 +444,10 @@
     .chart-months {
         gap: 5px;
         font-size: 0.65rem;
+    }
+
+    .chart-y {
+        width: 30px;
+        font-size: 0.7rem;
     }
 }
