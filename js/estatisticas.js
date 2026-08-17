@@ -1,194 +1,447 @@
 let livros = carregarLivros();
 
+const yearFilter = document.getElementById("yearFilter");
 const totalLidos = document.getElementById("totalLidos");
 const paginasLidas = document.getElementById("paginasLidas");
 const notaMedia = document.getElementById("notaMedia");
 const generosMaisLidos = document.getElementById("generosMaisLidos");
 const autoresMaisLidos = document.getElementById("autoresMaisLidos");
-const yearFilter = document.getElementById("yearFilter");
 const chartBars = document.getElementById("chartBars");
-const maxChartValue = document.getElementById("maxChartValue");
+const chartY = document.getElementById("chartY");
 
-function obterLivrosConcluidos(ano) {
+function obterAnoLivro(livro) {
+    if (!livro.dataConclusao) {
+        return null;
+    }
+
+    const data = new Date(
+        `${livro.dataConclusao}T00:00:00`
+    );
+
+    if (Number.isNaN(data.getTime())) {
+        return null;
+    }
+
+    return data.getFullYear();
+}
+
+function obterMesLivro(livro) {
+    if (!livro.dataConclusao) {
+        return null;
+    }
+
+    const data = new Date(
+        `${livro.dataConclusao}T00:00:00`
+    );
+
+    if (Number.isNaN(data.getTime())) {
+        return null;
+    }
+
+    return data.getMonth();
+}
+
+function obterLivrosDoAno() {
+    const ano = Number(yearFilter.value);
+
     return livros.filter(livro => {
-        if (livro.status !== "lido") {
-            return false;
-        }
-
-        if (!livro.dataConclusao) {
-            return false;
-        }
-
-        const data = new Date(livro.dataConclusao);
-
-        return data.getFullYear() === Number(ano);
+        return (
+            livro.status === "lido" &&
+            obterAnoLivro(livro) === ano
+        );
     });
 }
 
-function calcularEstatisticas(ano) {
-    const livrosLidos = obterLivrosConcluidos(ano);
+function atualizarResumo() {
+    const livrosDoAno = obterLivrosDoAno();
 
-    const total = livrosLidos.length;
+    totalLidos.textContent =
+        livrosDoAno.length;
 
-    const paginas = livrosLidos.reduce(
-        (total, livro) => total + Number(livro.paginas || 0),
+    const paginas = livrosDoAno.reduce(
+        (total, livro) => {
+            return total + Number(
+                livro.paginasLidas || 0
+            );
+        },
         0
     );
 
-    const livrosComNota = livrosLidos.filter(
-        livro => Number(livro.nota) > 0
+    paginasLidas.textContent = paginas;
+
+    const livrosComNota =
+        livrosDoAno.filter(
+            livro => Number(livro.nota) > 0
+        );
+
+    if (livrosComNota.length === 0) {
+        notaMedia.textContent = "0";
+        return;
+    }
+
+    const somaNotas =
+        livrosComNota.reduce(
+            (total, livro) => {
+                return total + Number(livro.nota);
+            },
+            0
+        );
+
+    const media =
+        somaNotas / livrosComNota.length;
+
+    notaMedia.textContent =
+        media.toFixed(1);
+}
+
+function gerarDadosMensais() {
+    const dados = Array(12).fill(0);
+    const livrosDoAno = obterLivrosDoAno();
+
+    livrosDoAno.forEach(livro => {
+        const mes = obterMesLivro(livro);
+
+        if (mes !== null) {
+            dados[mes]++;
+        }
+    });
+
+    return dados;
+}
+
+function renderizarGrafico() {
+    const dados = gerarDadosMensais();
+
+    const maiorValor = Math.max(
+        ...dados,
+        1
     );
 
-    const media = livrosComNota.length > 0
-        ? livrosComNota.reduce(
-            (total, livro) => total + Number(livro.nota),
-            0
-        ) / livrosComNota.length
-        : 0;
-
-    totalLidos.textContent = total;
-    paginasLidas.textContent = paginas.toLocaleString("pt-BR");
-    notaMedia.textContent = media.toFixed(1);
-}
-
-function obterLivrosPorMes(ano) {
-    const livrosPorMes = Array(12).fill(0);
-
-    const livrosLidos = obterLivrosConcluidos(ano);
-
-    livrosLidos.forEach(livro => {
-        const data = new Date(livro.dataConclusao);
-        const mes = data.getMonth();
-
-        livrosPorMes[mes]++;
-    });
-
-    return livrosPorMes;
-}
-
-function renderizarGrafico(ano) {
-    const livrosPorMes = obterLivrosPorMes(ano);
+    const maximoEixo = Math.max(
+        5,
+        Math.ceil(maiorValor / 5) * 5
+    );
 
     chartBars.innerHTML = "";
+    chartY.innerHTML = "";
 
-    const maiorValor = Math.max(...livrosPorMes, 1);
+    const passos = maximoEixo / 5;
 
-    maxChartValue.textContent = maiorValor;
+    for (
+        let valor = maximoEixo;
+        valor >= 0;
+        valor -= passos
+    ) {
+        const eixo =
+            document.createElement("span");
 
-    livrosPorMes.forEach(valor => {
-        const barWrapper = document.createElement("div");
-        barWrapper.classList.add("bar-wrapper");
+        eixo.textContent = valor;
 
-        const bar = document.createElement("div");
-        bar.classList.add("chart-bar");
+        chartY.appendChild(eixo);
+    }
 
-        const altura = valor === 0
-            ? 0
-            : (valor / maiorValor) * 100;
+    dados.forEach(valor => {
+        const wrapper =
+            document.createElement("div");
 
-        bar.style.height = `${altura}%`;
+        wrapper.classList.add("bar-wrapper");
 
-        if (valor > 0) {
-            bar.textContent = valor;
-        }
+        const altura =
+            valor === 0
+                ? 0
+                : (valor / maximoEixo) * 100;
 
-        barWrapper.appendChild(bar);
-        chartBars.appendChild(barWrapper);
+        wrapper.innerHTML = `
+            <div
+                class="chart-bar"
+                style="height: ${altura}%"
+                title="${valor} livro(s)"
+            >
+                ${valor > 0 ? valor : ""}
+            </div>
+        `;
+
+        chartBars.appendChild(wrapper);
     });
 }
 
-function obterRanking(lista, propriedade) {
-    const ranking = {};
+function contarPorCampo(lista, campo) {
+    const contagem = {};
 
     lista.forEach(livro => {
-        const valor = livro[propriedade];
+        const valor = livro[campo];
 
         if (!valor) {
             return;
         }
 
-        ranking[valor] = (ranking[valor] || 0) + 1;
+        contagem[valor] =
+            (contagem[valor] || 0) + 1;
     });
 
-    return Object.entries(ranking)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5);
+    return Object.entries(contagem)
+        .sort((a, b) => b[1] - a[1]);
 }
 
-function renderizarGeneros(ano) {
-    const livrosLidos = obterLivrosConcluidos(ano);
-    const ranking = obterRanking(livrosLidos, "genero");
+function renderizarLista(elemento, dados) {
+    elemento.innerHTML = "";
 
-    generosMaisLidos.innerHTML = "";
+    if (dados.length === 0) {
+        elemento.innerHTML = `
+            <p class="empty-message">
+                Nenhum dado disponível.
+            </p>
+        `;
 
-    if (ranking.length === 0) {
-        generosMaisLidos.innerHTML = "<p>Nenhum dado disponível.</p>";
         return;
     }
 
-    ranking.forEach(([genero, quantidade]) => {
-        const item = document.createElement("div");
-        item.classList.add("ranking-item");
+    const maiorQuantidade =
+        dados[0][1];
 
-        item.innerHTML = `
-            <div>
-                <span>${genero}</span>
-                <strong>${quantidade}</strong>
-            </div>
+    dados.forEach(
+        ([nome, quantidade]) => {
+            const percentual =
+                (quantidade / maiorQuantidade) * 100;
 
-            <div class="ranking-bar">
-                <span style="width: ${(quantidade / ranking[0][1]) * 100}%"></span>
-            </div>
-        `;
+            const item =
+                document.createElement("div");
 
-        generosMaisLidos.appendChild(item);
-    });
+            item.classList.add(
+                "stat-list-item"
+            );
+
+            item.innerHTML = `
+                <div class="stat-list-header">
+                    <span>${nome}</span>
+                    <strong>${quantidade}</strong>
+                </div>
+
+                <div class="stat-bar">
+                    <div
+                        class="stat-bar-fill"
+                        style="width: ${percentual}%"
+                    ></div>
+                </div>
+            `;
+
+            elemento.appendChild(item);
+        }
+    );
 }
 
-function renderizarAutores(ano) {
-    const livrosLidos = obterLivrosConcluidos(ano);
-    const ranking = obterRanking(livrosLidos, "autor");
+function atualizarGeneros() {
+    const livrosDoAno =
+        obterLivrosDoAno();
 
-    autoresMaisLidos.innerHTML = "";
+    const generos =
+        contarPorCampo(
+            livrosDoAno,
+            "genero"
+        );
 
-    if (ranking.length === 0) {
-        autoresMaisLidos.innerHTML = "<p>Nenhum dado disponível.</p>";
-        return;
-    }
+    renderizarLista(
+        generosMaisLidos,
+        generos
+    );
+}
 
-    ranking.forEach(([autor, quantidade]) => {
-        const item = document.createElement("div");
-        item.classList.add("ranking-item");
+function atualizarAutores() {
+    const livrosDoAno =
+        obterLivrosDoAno();
 
-        item.innerHTML = `
-            <div>
-                <span>${autor}</span>
-                <strong>${quantidade}</strong>
-            </div>
+    const autores =
+        contarPorCampo(
+            livrosDoAno,
+            "autor"
+        );
 
-            <div class="ranking-bar">
-                <span style="width: ${(quantidade / ranking[0][1]) * 100}%"></span>
-            </div>
-        `;
-
-        autoresMaisLidos.appendChild(item);
-    });
+    renderizarLista(
+        autoresMaisLidos,
+        autores
+    );
 }
 
 function atualizarEstatisticas() {
-    const ano = yearFilter.value;
-
     livros = carregarLivros();
 
-    calcularEstatisticas(ano);
-    renderizarGrafico(ano);
-    renderizarGeneros(ano);
-    renderizarAutores(ano);
+    atualizarResumo();
+    renderizarGrafico();
+    atualizarGeneros();
+    atualizarAutores();
 }
+
+function preencherAnos() {
+    const anos = new Set();
+
+    livros.forEach(livro => {
+        const ano = obterAnoLivro(livro);
+
+        if (ano) {
+            anos.add(ano);
+        }
+    });
+
+    anos.add(
+        new Date().getFullYear()
+    );
+
+    const anosOrdenados =
+        [...anos].sort(
+            (a, b) => b - a
+        );
+
+    yearFilter.innerHTML = "";
+
+    anosOrdenados.forEach(ano => {
+        const option =
+            document.createElement("option");
+
+        option.value = ano;
+        option.textContent = ano;
+
+        yearFilter.appendChild(option);
+    });
+
+    yearFilter.value =
+        new Date().getFullYear();
+}
+
+const bookModal =
+    document.getElementById("bookModal");
+
+const bookForm =
+    document.getElementById("bookForm");
+
+const btnAdicionar =
+    document.getElementById("btnAdicionar");
+
+const btnFecharModal =
+    document.getElementById("btnFecharModal");
+
+const btnCancelar =
+    document.getElementById("btnCancelar");
+
+const btnSalvarLivro =
+    document.getElementById("btnSalvarLivro");
+
+function abrirModal() {
+    bookForm.reset();
+
+    btnSalvarLivro.textContent =
+        "Salvar livro";
+
+    bookModal.classList.add("active");
+}
+
+function fecharModal() {
+    bookModal.classList.remove("active");
+
+    bookForm.reset();
+}
+
+btnAdicionar.addEventListener(
+    "click",
+    abrirModal
+);
+
+btnFecharModal.addEventListener(
+    "click",
+    fecharModal
+);
+
+btnCancelar.addEventListener(
+    "click",
+    fecharModal
+);
+
+bookModal.addEventListener(
+    "click",
+    event => {
+        if (event.target === bookModal) {
+            fecharModal();
+        }
+    }
+);
+
+bookForm.addEventListener(
+    "submit",
+    event => {
+        event.preventDefault();
+
+        const titulo =
+            document.getElementById("titulo")
+                .value.trim();
+
+        const autor =
+            document.getElementById("autor")
+                .value.trim();
+
+        const genero =
+            document.getElementById("genero")
+                .value.trim();
+
+        const paginas =
+            Number(
+                document.getElementById("paginas")
+                    .value
+            );
+
+        const status =
+            document.getElementById("status")
+                .value;
+
+        const nota =
+            Number(
+                document.getElementById("nota")
+                    .value
+            );
+
+        const capa =
+            document.getElementById("capa")
+                .value.trim();
+
+        const descricao =
+            document.getElementById("descricao")
+                .value.trim();
+
+        const novoLivro = {
+            id: Date.now(),
+            titulo,
+            autor,
+            genero,
+            paginas,
+            paginasLidas:
+                status === "lido"
+                    ? paginas
+                    : 0,
+            status,
+            nota,
+            capa,
+            descricao,
+            anotacoes: "",
+            dataConclusao:
+                status === "lido"
+                    ? new Date()
+                        .toISOString()
+                        .split("T")[0]
+                    : null
+        };
+
+        livros.push(novoLivro);
+
+        salvarLivros(livros);
+
+        fecharModal();
+
+        atualizarEstatisticas();
+    }
+);
 
 yearFilter.addEventListener(
     "change",
     atualizarEstatisticas
 );
 
+preencherAnos();
 atualizarEstatisticas();
